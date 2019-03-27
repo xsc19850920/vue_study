@@ -1,0 +1,12 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+#app{
+    
+    background-color: blue;
+}
+#app h1{
+    
+     background-image:url(../images/2.jpg);
+}

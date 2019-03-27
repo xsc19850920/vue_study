@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>computed 的基本用法及注意事项</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.min.css">
+    <script src="Vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="app">
+       firestname <input type="text" v-model="firestname"> + 
+       lastname <input type="text" v-model="lastname"> =
+       fullname <input type="text" v-model="fullname">
+    </div>
+
+    
+
+    <script>
+        var vm = new Vue({
+            data: {
+               firestname :'',
+               lastname:'',
+            },
+            el: '#app',
+            // 计算属性 定义的时候是方法  ，但是用的时候是直接当作属性用 不用加（）
+            //注意事项：
+            //计算属性的返回值会被缓存起来 ，只有当计算属性相关的属性 firestname 或者 lastname 
+            // 其中的一个变化的时候他的值才会被重新计算 ，这一点和methods是不一样的 
+            computed: {
+                'fullname':function(){
+                    return this.firestname + '-' +this.lastname
+                }
+            },
+           
+
+        })
+    </script>
+</body>
+
+</html>

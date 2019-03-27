@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>路由参数</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.min.css">
+    <script src="Vue.js"></script>
+    <script src="vue-router.js"></script>
+    
+
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/login?id=1&name=sxia">登陆</router-link>
+        <router-link to="/regirest/2">注册</router-link>
+        <router-view></router-view>
+    </div>
+
+    
+
+    <script>
+
+        var login = {
+            template : '<h1>login</h1>'
+        }
+
+        var regirest = {
+            template : '<h1>regirest</h1>'
+        }
+
+         var router = new VueRouter({
+            routes :[
+                {path:'/',redirect:'/login'},
+                {path:'/login',component:login},
+                {path:'/regirest/:id',component:regirest},
+                
+            ],
+            // linkActiveClass:'myLinkActiveClass'
+        })
+
+        var vm = new Vue({
+            data: {
+               
+            },
+            components:{},
+            created:function(){
+                //注意问号的参数用query 取
+                console.log(this.$route.query.name)
+                // :id 用params 取
+
+                console.log(this.$route.params.id)
+            },
+            el: '#app',
+
+           router:router,
+           watch:{ 
+               // 监听路由地址的变化
+            '$route.path' :function(newValue,oldValue){
+                console.log(newValue + '---' + oldValue)
+            }
+           },
+
+        })
+    </script>
+</body>
+
+</html>

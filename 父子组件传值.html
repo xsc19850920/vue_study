@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>父组件的值传递给子组件</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.min.css">
+    <script src="Vue.js"></script>
+
+    
+</head>
+
+<body>
+
+        <!-- 父组件的值传递给子组件 步骤
+        1 v-bind:parentmsg="msg" 用v-bind 绑定子组件对应的属性  这里的parentmsg 是子组件的属性  msg是父组件的属性
+        2 在子组件的定义中制定props:['parentmsg'] 用以在子组件中声明 parentmsg 这个变量
+        3 在子组件的template中就可以使用{{parentmsg}} 了 -->
+
+
+        <!-- 子组件传递数据给父组件 步骤
+        1 在父组件中定义一个属性 dataFromChild
+        2 在父组件中定义一个方法 getMsgFromChild:function(dataFromChild) 方法内部this.msgFromChild = dataFromChild 
+        3 子组件中定一个属性
+            data(){return {
+                childmsg : 'child msg'
+            }},
+          注意属性的写法 
+        4 子组件中 加入自定义的方法调用 自定义的方法关联父组件的方法 @func="getMsgFromChild"
+        5 子组件中定一个方法
+            sendMsgFromChild(){
+                this.$emit('func',this.childmsg)
+            }
+         注意 this.$emit 是调用与父组件相关联的方法 func 关联的是getMsgFromChild ，第二个参数是要传递过去的数据this.childmsg -->
+
+
+
+
+    <div id="app">
+        <com1 v-bind:parentmsg="msg"  @func="getMsgFromChild"></com1>
+    </div>
+
+    <template id="temp1">
+        <div>
+            我是子组件---{{parentmsg}}
+
+            <input type="button" value="从子组件获得数据" @click="sendMsgFromChild">
+        </div>
+    </template>
+
+    <script>
+            var com1 = {
+                template : '#temp1',
+                props:['parentmsg'],
+                data(){return {
+                    childmsg : 'child msg'
+                }},
+                methods: {
+                    sendMsgFromChild(){
+                        this.$emit('func',this.childmsg)
+                    }
+                },
+                
+
+
+            }
+    
+    
+            var vm = new Vue({
+                data: {
+                    msg :'parent msg',
+                    msgFromChild:'',
+                },
+                el: '#app',
+                methods: {
+                    getMsgFromChild:function(dataFromChild){
+                        this.msgFromChild = dataFromChild
+                        console.log(this.msgFromChild)
+                    },
+                },
+                components:{
+                    com1
+                }
+    
+            })
+        </script>
+</body>
+
+</html>

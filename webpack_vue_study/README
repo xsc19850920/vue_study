@@ -1,0 +1,24 @@
+
+用webpack 开发vue
+
+1 在项目的根目录下运行
+
+npm install webpack webpack-cli webpack-dev-server html-webpack-plugin vue-loader vue-template-compiler -D
+
+npm install vue -S
+
+2 main.js 中引入 import Vue from 'vue'
+
+
+3定义一个.vue的文件  这个文件中有三个部分  template script style
+
+
+4 在 main.js 中导入 import login from './compents/login.vue'
+
+5 创建vue对象 var vm = new Vue({}) 
+
+6 vue对象对象中加入 render:c=>c(app), 这个是 
+    render :function(c){
+        return c(app)
+    }
+    的简写
